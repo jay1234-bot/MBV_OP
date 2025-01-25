@@ -29,13 +29,13 @@ async def raid(Badmunda: Client, e: Message):
         owo = lol[1]
         if not owo:
             await e.reply_text(
-                "you need to specify an user! Reply to any user or gime id/username"
+                "נιѕкσ ρєℓηα нαι υѕкα ηααм вαтα мα∂нαя¢нσ∂ Reply to any user or give id/username"
             )
             return
         try:
             user = await Badmunda.get_users(lol[1])
         except:
-            await e.reply_text("**Error:** User not found!")
+            await e.reply_text("**Error:** ʙʜᴏꜱᴅɪᴡᴀʟᴀ ɴᴀʜɪ ᴍɪʟᴀ ᴍᴜᴊʜᴇ")
             return
     elif e.reply_to_message:
         try:
@@ -82,23 +82,23 @@ async def rraid(Badmunda: Client, e: Message):
             user_ = int(user_)
         if not user_:
             return await e.reply_text(
-                "I don't know who you're talking about, you're going to need to specify a user.!"
+                "кιѕ внσѕ∂ιωαℓє кσ ρєℓηα нαι ηααм тσн вαтασ υѕкα !"
             )
         try:
             user = await Badmunda.get_users(user_)
         except (TypeError, ValueError):
             return await message.reply_text(
-                "Looks like I don't have control over that user, or the ID isn't a valid one. If you reply to one of their messages, I'll be able to interact with them."
+                "ᴀᴀᴘ ᴊɪꜱ ʙʜᴏꜱᴅɪᴡᴀʟᴇ ᴋᴏ ᴘᴇʟɴᴀ ᴄʜᴀʜᴛᴇ ʜᴀɪ ᴜꜱᴋᴀ ᴜꜱᴇʀɴᴀᴍᴇ ʏᴀᴀ ɪᴅ ɢᴀʟᴀᴛ ʜᴀɪ ᴅᴜʙᴀʀᴀ ᴋᴏꜱʜɪꜱʜ ᴋᴀʀᴇ ʏᴀᴀ ᴜꜱᴋᴇ ᴍᴇꜱꜱᴀɢᴇ ᴘᴇ ʀᴇᴘʟʏ ᴋᴀʀᴇ ᴛᴀᴋɪ ᴍᴀɪ ᴜꜱꜱᴇ ᴘᴇʟ ꜱᴀᴋᴜ ᴀᴄᴄʜᴇ ꜱᴇ"
             )
     else:
         return await e.reply_text(
-            "I don't know who you're talking about, you're going to need to specify a user...!"
+            "кιѕ внσѕ∂ιωαℓє кσ ρєℓηα нαι ηααм тσн вαтασ υѕкα ...!"
         )
     if int(user.id) in USERS:
-        return await e.reply_text("User already in Raid list!")
+        return await e.reply_text("ʏᴇ ᴘᴇʜʟᴇ ꜱᴇ ᴄʜᴜᴅɴᴇ ᴡᴀʟᴇ ʟɪꜱᴛ ᴍᴇ ʜᴀɪ")
     USERS.append(user.id)
     mention = user.mention
-    await e.reply_text(f"Reply Raid Activated On User {mention}")
+    await e.reply_text(f"ɪꜱᴋᴏ ᴘᴇʟɴᴇ ᴋᴀ ᴋᴀᴀᴍ ꜱʜᴜʀᴜ ᴋᴀʀ ᴅɪʏᴀ ɢᴀʏᴀ ʜᴀɪ {mention}")
     if LOG_CHANNEL:
         try:
             await Badmunda.send_message(
