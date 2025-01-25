@@ -10,7 +10,7 @@ from pyrogram import idle
 from BADMUNDA.Config import *
 
 version = "v2.0"
-group_username = "@PBX_CHAT"
+group_username = "@CENSORED_POLITICSSS"
 logging.basicConfig(format="%(levelname)s  %(message)s", level=logging.INFO)
 
 
