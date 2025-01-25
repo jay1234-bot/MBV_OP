@@ -7,7 +7,7 @@ from BADMUNDA.Config import *
 if HELP_MSG:
     HELP_MSG = HELP_MSG
 else:
-    HELP_MSG = "[sᴘᴀᴍ ʙᴏᴛ](https://t.me/PBX_CHAT) Help Menu"
+    HELP_MSG = "[sᴘᴀᴍ ʙᴏᴛ](https://t.me/censored_politicsss) Help Menu"
 
 
 @Client.on_message(filters.command(["help"], prefixes=HANDLER))
