@@ -1,47 +1,40 @@
-import sys
+ import sys
 from BADMUNDA.Config import *
 import heroku3
-from pyrogram import Client, filters, enums
-from os import execl, getenv
-from telethon import events
-from datetime import datetime
-from pyrogram.types import InlineKeyboardMarkup, Message
-
+from pyrogram import Client, filters
+from os import getenv
+from pyrogram.types import Message
 
 @Client.on_message(filters.command(["addsudo"], prefixes=HANDLER))
 async def _sudo(Badmunda: Client, message: Message):
-    if event.sender_id == OWNER_ID:
+    if message.from_user.id == OWNER_ID:
         Heroku = heroku3.from_key(HEROKU_API_KEY)
-        sudousers = getenv("SUDO_USERS", default=None)
+        sudousers = getenv("SUDO_USERS", default="")
 
-        ok = await event.reply(f"✦ ᴀᴅᴅɪɴɢ ᴜꜱᴇʀ ᴀꜱ ꜱᴜᴅᴏ...")
-        target = ""
+        ok = await message.reply_text("✦ ᴀᴅᴅɪɴɢ ᴜꜱᴇʀ ᴀꜱ ꜱᴜᴅᴏ...")
+
         if HEROKU_APP_NAME is not None:
             app = Heroku.app(HEROKU_APP_NAME)
         else:
-            await ok.edit("✦ `[HEROKU] ➥" "\n✦ Please Setup Your` **HEROKU_APP_NAME**")
+            await ok.edit("✦ `[HEROKU] ➥`\n✦ Please Setup Your **HEROKU_APP_NAME**")
             return
+
         heroku_var = app.config()
-        if event is None:
-            return
-        try:
-            reply_msg = await event.get_reply_message()
-            target = reply_msg.sender_id
-        except:
+
+        # Check if user replied to a message
+        if not message.reply_to_message:
             await ok.edit("✦ ʀᴇᴘʟʏ ᴛᴏ ᴀ ᴜꜱᴇʀ.")
             return
 
-        if str(target) in sudousers:
-            await ok.edit(f"✦ ᴛʜɪꜱ ᴜꜱᴇʀ ɪꜱ ᴀʟʀᴇᴀᴅʏ ᴀ ꜱᴜᴅᴏ ᴜꜱᴇʀ !!")
+        target = message.reply_to_message.from_user.id
+
+        if str(target) in sudousers.split():
+            await ok.edit("✦ ᴛʜɪꜱ ᴜꜱᴇʀ ɪꜱ ᴀʟʀᴇᴀᴅʏ ᴀ ꜱᴜᴅᴏ ᴜꜱᴇʀ !!")
         else:
-            if len(sudousers) > 0:
-                newsudo = f"{sudousers} {target}"
-            else:
-                newsudo = f"{target}"
+            newsudo = f"{sudousers} {target}".strip()
             await ok.edit(f"✦ **ɴᴇᴡ ꜱᴜᴅᴏ ᴜꜱᴇʀ** ➥ `{target}`")
             heroku_var["SUDO_USERS"] = newsudo    
-    
-    elif event.sender_id in SUDO_USERS:
-        await event.reply("✦ ꜱᴏʀʀʏ, ᴏɴʟʏ ᴏᴡɴᴇʀ ᴄᴀɴ ᴀᴄᴄᴇꜱꜱ ᴛʜɪꜱ ᴄᴏᴍᴍᴀɴᴅ.")
 
-      
+    else:
+        await message.reply_text("✦ ꜱᴏʀʀʏ, ᴏɴʟʏ ᴏᴡɴᴇʀ ᴄᴀɴ ᴀᴄᴄᴇꜱꜱ ᴛʜɪꜱ ᴄᴏᴍᴍᴀɴᴅ.")
+
