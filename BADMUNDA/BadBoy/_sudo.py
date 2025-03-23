@@ -1,4 +1,4 @@
- import sys
+import sys
 from BADMUNDA.Config import *
 import heroku3
 from pyrogram import Client, filters
