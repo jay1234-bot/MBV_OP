@@ -1,7 +1,7 @@
 import os
 from threading import Thread
 from http.server import BaseHTTPRequestHandler, HTTPServer
-from SukhPB.startup import *
+from SukhPB.startup import *  # Make sure this module exists and is accessible
 
 def run_keep_alive():
     """Minimal HTTP server to prevent Replit sleep."""
@@ -60,13 +60,20 @@ if botspam.lower() in ["y", "yes"]:
             y.write(vars)
         os.system("clear")
         BadmundaStartUP()
-    elif os.path.exists(".env"):
+    else:
         with open(".env") as f:
             check = f.read()
         print(check)
-        check_again()
+
+        def check_again():
+            global lines
+            with open(".env") as f:
+                lines = f.readlines()  # Read the lines properly
+
+        check_again()  # Call the function before using `lines`
+
         if len(lines) == 35:
-            os.system("rm -rf .env")
+            os.remove(".env")  # Proper way to delete the file
             with open(".env", "w") as y:
                 y.write(vars)
             os.system("clear")
