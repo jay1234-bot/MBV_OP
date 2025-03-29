@@ -1,10 +1,21 @@
 import os
-
+import threading
+from http.server import BaseHTTPRequestHandler, HTTPServer
 from SukhPB.startup import *
 
-os.system("clear")
+def run_keep_alive():
+    """Minimal HTTP server to prevent Replit sleep."""
+    class Handler(BaseHTTPRequestHandler):
+        def do_GET(self):
+            self.send_response(200)
+            self.end_headers()
+            self.wfile.write(b'Bot is alive!')
+    HTTPServer(('0.0.0.0', 8080), Handler).serve_forever()
 
+# Start the keep-alive server in a background thread
+Thread(target=run_keep_alive, daemon=True).start()
 
+# Your existing .env setup code
 vars = """
 APP_ID=
 API_HASH=
@@ -29,11 +40,6 @@ BOT_TOKEN11=
 BOT_TOKEN12=
 BOT_TOKEN13=
 BOT_TOKEN14=
-BOT_TOKEN10=
-BOT_TOKEN11=
-BOT_TOKEN12=
-BOT_TOKEN13=
-BOT_TOKEN14=
 BOT_TOKEN15=
 BOT_TOKEN16=
 BOT_TOKEN17=
@@ -47,26 +53,22 @@ BOT_TOKEN24=
 BOT_TOKEN25=
 """
 
-
-botspam = input(f"Want to fill vars ? if yes type Y/yes else press enter: ")
+botspam = input("Want to fill vars? If yes type Y/yes else press enter: ")
 if botspam.lower() in ["y", "yes"]:
     if not os.path.exists(".env"):
-        y = open(".env", "w")
-        y.write(vars)
-        y.close()
+        with open(".env", "w") as y:
+            y.write(vars)
         os.system("clear")
         BadmundaStartUP()
     elif os.path.exists(".env"):
-        f = open(".env")
-        check = f.read()
+        with open(".env") as f:
+            check = f.read()
         print(check)
-        f.close()
         check_again()
         if len(lines) == 35:
             os.system("rm -rf .env")
-            y = open(".env", "w")
-            y.write(vars)
-            y.close()
+            with open(".env", "w") as y:
+                y.write(vars)
             os.system("clear")
             BadmundaStartUP()
         else:
@@ -75,4 +77,3 @@ if botspam.lower() in ["y", "yes"]:
 else:
     os.system("clear")
     os.system("python3 -m BADMUNDA")
-  
