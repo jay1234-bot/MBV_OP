@@ -1,5 +1,5 @@
 import os
-import threading
+from threading import Thread
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from SukhPB.startup import *
 
