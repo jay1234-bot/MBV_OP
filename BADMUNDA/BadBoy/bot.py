@@ -3,9 +3,9 @@ import os
 import sys
 import time
 
-from SukhPB.get_time import get_time
 from pyrogram import Client, filters
 from pyrogram.types import Message
+from SukhPB.get_time import get_time
 
 from BADMUNDA import start_time
 from BADMUNDA.Config import *
@@ -54,4 +54,3 @@ async def restarter(Badmunda: Client, message: Message):
     args = [sys.executable, "-m", "BADMUNDA"]
     os.execl(sys.executable, *args)
     quit()
-      

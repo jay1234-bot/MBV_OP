@@ -13,13 +13,15 @@ class Data:
         ],
         [
             InlineKeyboardButton(text="𓅓 ᴇᴠᴀʟ 𓅓", callback_data="evaluators_help1"),
-            ],
-         [
+        ],
+        [
             InlineKeyboardButton(text="✯ ᴇxᴇᴄ ✯", callback_data="evaluators_help2"),
             InlineKeyboardButton(text="✯ ɢᴏᴏᴅ ᴍᴏʀɴɪɴɢ ✯", callback_data="gwish_help1"),
-         ],
+        ],
         [
-            InlineKeyboardButton(text="✯ ɢᴏᴏᴅ ᴀғᴛᴇʀɴᴏᴏɴ ✯", callback_data="gwish_help2"),
+            InlineKeyboardButton(
+                text="✯ ɢᴏᴏᴅ ᴀғᴛᴇʀɴᴏᴏɴ ✯", callback_data="gwish_help2"
+            ),
             InlineKeyboardButton(text="✯ ɢᴏᴏᴅ ɴɪɢʜᴛ ✯", callback_data="gwish_help3"),
         ],
         [
@@ -32,8 +34,8 @@ class Data:
         [
             InlineKeyboardButton(text="✯ ʟɪsᴛ ʀᴀɪᴅ ✯", callback_data="raid_help4"),
             InlineKeyboardButton(text="✯ sʜᴀʏʀɪ ✯", callback_data="shayri_help1"),
-         ],
-         [
+        ],
+        [
             InlineKeyboardButton(text="𓅓 sᴛᴏᴘ 𓅓", callback_data="shayri_help2"),
         ],
         [
@@ -46,7 +48,7 @@ class Data:
         ],
         [
             InlineKeyboardButton(text="𓅓 ᴜ sᴘᴀᴍ 𓅓", callback_data="unlimited_help1"),
-          ],
+        ],
         [
             InlineKeyboardButton(text="✯ ᴜ ʀᴀɪᴅ ✯", callback_data="unlimited_help2"),
             InlineKeyboardButton(text="✯ ᴀʙᴜsᴇ ✯", callback_data="unlimited_help3"),

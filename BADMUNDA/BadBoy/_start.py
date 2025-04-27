@@ -1,14 +1,19 @@
 import platform
-from SukhPB.start import start_cmd
-from pyrogram import Client, filters
+
+from pyrogram import Client
 from pyrogram import __version__ as py_version
+from pyrogram import filters
 from pyrogram.types import InlineKeyboardMarkup, Message
+from SukhPB.start import start_cmd
+
 from BADMUNDA.Config import *
+
 from ..core.clients import *
 
 # Default START_PIC if not set
 if not START_PIC:
     START_PIC = "https://envs.sh/fS5.jpg"
+
 
 @Client.on_message(filters.command(["start"], prefixes=HANDLER))
 async def _start(Badmunda: Client, message: Message):
@@ -34,7 +39,7 @@ async def _start(Badmunda: Client, message: Message):
     # Loop through Clients 1 to 25
     for i in range(1, 26):
         client_name = f"Client{i}"
-        if client_name in globals():  
+        if client_name in globals():
             lol = globals()[client_name]
             if lol is not None:
                 if START_PIC.lower().endswith((".jpg", ".png")):

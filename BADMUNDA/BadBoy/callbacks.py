@@ -1,8 +1,8 @@
 from pyrogram import Client
 from pyrogram.types import CallbackQuery, InlineKeyboardMarkup
 
-from Data import Data
 from BADMUNDA.cmd_help import *
+from Data import Data
 
 
 @Client.on_callback_query()
@@ -107,5 +107,4 @@ async def _callbacks(Badmunda: Client, callback_query: CallbackQuery):
             text="ʜᴇʟᴘ ᴍᴇɴᴜ ᴘᴏᴡᴇʀᴇᴅ ʙʏ  @CENSORED_POLITICSSS",
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup(Data.HELP_MENU3),
-      )
-                                    
+        )

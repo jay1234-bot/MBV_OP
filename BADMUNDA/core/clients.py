@@ -2,10 +2,10 @@
 import logging
 import platform
 
-from SukhPB.start_bot import start_bot
 from pyrogram import Client as call
 from pyrogram import __version__ as py_version
 from pyrogram import idle
+from SukhPB.start_bot import start_bot
 
 from BADMUNDA.Config import *
 

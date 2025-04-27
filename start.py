@@ -1,16 +1,21 @@
 import os
-from threading import Thread
 from http.server import BaseHTTPRequestHandler, HTTPServer
+from threading import Thread
+
 from SukhPB.startup import *  # Make sure this module exists and is accessible
+
 
 def run_keep_alive():
     """Minimal HTTP server to prevent Replit sleep."""
+
     class Handler(BaseHTTPRequestHandler):
         def do_GET(self):
             self.send_response(200)
             self.end_headers()
-            self.wfile.write(b'Bot is alive!')
-    HTTPServer(('0.0.0.0', 8080), Handler).serve_forever()
+            self.wfile.write(b"Bot is alive!")
+
+    HTTPServer(("0.0.0.0", 8080), Handler).serve_forever()
+
 
 # Start the keep-alive server in a background thread
 Thread(target=run_keep_alive, daemon=True).start()

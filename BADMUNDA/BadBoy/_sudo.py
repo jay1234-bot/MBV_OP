@@ -1,9 +1,11 @@
-import sys
-from BADMUNDA.Config import *
+from os import getenv
+
 import heroku3
 from pyrogram import Client, filters
-from os import getenv
 from pyrogram.types import Message
+
+from BADMUNDA.Config import *
+
 
 @Client.on_message(filters.command(["addsudo"], prefixes=HANDLER))
 async def _sudo(Badmunda: Client, message: Message):
@@ -33,8 +35,7 @@ async def _sudo(Badmunda: Client, message: Message):
         else:
             newsudo = f"{sudousers} {target}".strip()
             await ok.edit(f"✦ **ɴᴇᴡ ꜱᴜᴅᴏ ᴜꜱᴇʀ** ➥ `{target}`")
-            heroku_var["SUDO_USERS"] = newsudo    
+            heroku_var["SUDO_USERS"] = newsudo
 
     else:
         await message.reply_text("✦ ꜱᴏʀʀʏ, ᴏɴʟʏ ᴏᴡɴᴇʀ ᴄᴀɴ ᴀᴄᴄᴇꜱꜱ ᴛʜɪꜱ ᴄᴏᴍᴍᴀɴᴅ.")
-

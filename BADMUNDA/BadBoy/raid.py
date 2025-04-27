@@ -1,9 +1,9 @@
 import asyncio
 from random import choice
 
-from SukhPB.raid import RAID, RRAID
 from pyrogram import Client, filters
 from pyrogram.types import Message
+from SukhPB.raid import RAID, RRAID
 
 from BADMUNDA.Config import *
 
@@ -181,4 +181,3 @@ async def checkraid(Badmunda: Client, msg: Message):
     global USERS
     if int(msg.from_user.id) in USERS:
         await msg.reply_text(choice(RRAID))
-          

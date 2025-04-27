@@ -201,4 +201,3 @@ async def stopwish(_, e: Message):
     global wish
     wish = False
     await e.reply_text("Stopped Unlimited Wish gdmrng")
-          

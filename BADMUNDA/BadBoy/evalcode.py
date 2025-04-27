@@ -66,4 +66,3 @@ async def exec(Badmunda: Client, message: Message):
             f"<b>Result</b>:\n"
             f"<code>{result}</code>"
         )
-      

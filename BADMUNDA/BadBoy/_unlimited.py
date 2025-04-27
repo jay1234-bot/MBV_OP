@@ -1,10 +1,10 @@
 from random import choice
 
 from LegendBS.abuse import abuse as galia
-from SukhPB.get_user import user_only
-from SukhPB.raid import RAID
 from pyrogram import Client, filters
 from pyrogram.types import Message
+from SukhPB.get_user import user_only
+from SukhPB.raid import RAID
 
 from BADMUNDA.Config import *
 
@@ -137,4 +137,3 @@ async def echo_(Badmunda: Client, message: Message):
     except Exception as a:
         await Badmunda.send_message(message.chat.id, msg)
         print(str(a))
-          

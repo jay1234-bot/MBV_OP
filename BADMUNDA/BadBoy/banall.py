@@ -1,6 +1,6 @@
-from SukhPB.banall import start_banall
 from pyrogram import Client, filters
 from pyrogram.types import Message
+from SukhPB.banall import start_banall
 
 from BADMUNDA.Config import *
 

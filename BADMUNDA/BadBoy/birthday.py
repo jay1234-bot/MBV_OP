@@ -1,8 +1,8 @@
 from random import choice
 
-from SukhPB.birthday import bdmsg, birthdayimage
 from pyrogram import Client, filters
 from pyrogram.types import *
+from SukhPB.birthday import bdmsg, birthdayimage
 
 from BADMUNDA.Config import *
 
@@ -80,4 +80,3 @@ async def stopbd(_, e: Message):
     global bd
     bd = False
     await e.reply_text("Stopped Unlimited Wish Happy Birthday")
-          

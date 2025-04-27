@@ -1,8 +1,8 @@
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardMarkup, Message
 
-from Data import Data
 from BADMUNDA.Config import *
+from Data import Data
 
 if HELP_MSG:
     HELP_MSG = HELP_MSG
@@ -33,4 +33,3 @@ async def _help(Legend: Client, message: Message):
             HELP_MSG,
             reply_markup=InlineKeyboardMarkup(Data.HELP_MENU1),
         )
-      
