@@ -9,5 +9,4 @@ tgcrypto
 async-eval==0.1.11
 python-dotenv[cli]
 python-dotenv
-pyLegendBS
 git+https://gitlab.com/Badmunda98/pySukhPB
