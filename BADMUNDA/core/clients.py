@@ -320,13 +320,13 @@ else:
 
 async def Start_BotSpam():
     for i in range(1, 26):
-        var = globals()[f"Client{i}"]
-        if var is not None:
-            await start_bot(var)
-    print("➖➖➖➖➖➖➖➖➖➖➖➖")
-    print(f"💥ʙᴏᴛ sᴘᴀᴍ 🔥[INFO] : ɢʀᴘᴜᴘ ᴜsᴇʀɴᴀᴍᴇ {group_username}")
-    print(f"💥 ʙᴏᴛ sᴘᴀᴍ 🔥[INFO] : ᴠᴇʀsɪᴏɴ - {platform.python_version()}")
-    print(f"💥 ʙᴏᴛ sᴘᴀᴍ  🔥[INFO]: sᴘᴀᴍʙᴏᴛ ᴠᴇʀsɪᴏɴ - {version}")
-    print(f"💥 ʙᴏᴛ sᴘᴀᴍ 🔥[INFO]: ᴘʏʀᴏɢʀᴀᴍ ᴠᴇʀsɪᴏɴ - {py_version}")
-    print("➖➖➖➖➖➖➖➖➖➖➖➖")
+        client_name = f"Client{i}"
+        var = globals().get(client_name)
+
+        if var is None:
+            print(f"{client_name} not found")
+            continue
+
+        await start_bot(var)
+
     await idle()
