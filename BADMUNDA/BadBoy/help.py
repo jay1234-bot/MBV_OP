@@ -7,7 +7,7 @@ from Data import Data
 if HELP_MSG:
     HELP_MSG = HELP_MSG
 else:
-    HELP_MSG = "[sᴘᴀᴍ ʙᴏᴛ](https://t.me/censored_politicsss) Help Menu"
+    HELP_MSG = "[sᴘᴀᴍ ʙᴏᴛ](https://t.me/censored_politicss) Help Menu"
 
 
 @Client.on_message(filters.command(["help"], prefixes=HANDLER))
