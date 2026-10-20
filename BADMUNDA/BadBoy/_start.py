@@ -1,7 +1,6 @@
 
 import platform
 
-from urllib.parse import quote
 from pyrogram import Client, filters
 from pyrogram import __version__ as py_version
 from pyrogram.types import (
@@ -16,54 +15,66 @@ from ..core.clients import *
 
 # Default START_PIC if not set
 if not START_PIC:
-    START_PIC = "https://i.pinimg.com/736x/e9/c7/f7/e9c7f78ec4180885cd0ce4bf95197c40.jpg"
+    START_PIC = (
+        "https://i.pinimg.com/736x/e9/c7/f7/"
+        "e9c7f78ec4180885cd0ce4bf95197c40.jpg"
+    )
 
 
-# Custom start buttons
-START_BUTTONS = InlineKeyboardMarkup(
-    [
+# Create buttons dynamically for each bot
+def get_start_buttons(bot_username: str) -> InlineKeyboardMarkup:
+    return InlineKeyboardMarkup(
         [
-            InlineKeyboardButton(
-                "🌸 ᴅᴇᴠᴇʟᴏᴘᴇʀ 🌸",
-                url="https://t.me/censored_politics",
-            ),
-            InlineKeyboardButton(
-                "💫 sᴜᴘᴘᴏʀᴛ 💫",
-                url="https://t.me/censoredkrishan",
-            ),
-        ],
-        [
-            InlineKeyboardButton(
-                "👻 ᴀᴅᴅ ᴍᴇ ɪɴ ʏᴏᴜʀ ɢʀᴏᴜᴘ 👻",
-                url=f"https://t.me/{bot_username}?startgroup=true",
-            ),
-        ],
-        [
-            InlineKeyboardButton(
-                "📢 ᴄʜᴀɴɴᴇʟ 📢",
-                url="https://t.me/censoredkrishan",
-            ),
-            InlineKeyboardButton(
-                "📂 sᴏᴜʀᴄᴇ ᴄᴏᴅᴇ 📂",
-                url="https://t.me/censored_politics",
-            ),
-        ],
-        [
-            InlineKeyboardButton(
-                "✨ ᴜᴘᴅᴀᴛᴇ ✨",
-                url="https://t.me/censoredkrishan",
-            ),
-        ],
-    ]
-)
+            [
+                InlineKeyboardButton(
+                    "🌸 ᴅᴇᴠᴇʟᴏᴘᴇʀ 🌸",
+                    url="https://t.me/censored_politics",
+                ),
+                InlineKeyboardButton(
+                    "💫 sᴜᴘᴘᴏʀᴛ 💫",
+                    url="https://t.me/censoredkrishan",
+                ),
+            ],
+            [
+                InlineKeyboardButton(
+                    "👻 ᴀᴅᴅ ᴍᴇ ɪɴ ʏᴏᴜʀ ɢʀᴏᴜᴘ 👻",
+                    url=f"https://t.me/{bot_username}?startgroup=true",
+                ),
+            ],
+            [
+                InlineKeyboardButton(
+                    "📢 ᴄʜᴀɴɴᴇʟ 📢",
+                    url="https://t.me/censoredkrishan",
+                ),
+                InlineKeyboardButton(
+                    "📂 sᴏᴜʀᴄᴇ ᴄᴏᴅᴇ 📂",
+                    url="https://t.me/censored_politics",
+                ),
+            ],
+            [
+                InlineKeyboardButton(
+                    "✨ ᴜᴘᴅᴀᴛᴇ ✨",
+                    url="https://t.me/censoredkrishan",
+                ),
+            ],
+        ]
+    )
 
 
 @Client.on_message(filters.command(["start"], prefixes=HANDLER))
 async def _start(Badmunda: Client, message: Message):
     global START_MESSAGE
 
+    # Get the identity of the bot handling this command
     my_detail = await Badmunda.get_me()
     my_mention = my_detail.mention
+
+    # Build buttons using this bot's own username
+    if not my_detail.username:
+        print("Cannot create group link: bot has no public username.")
+        start_buttons = get_start_buttons("")
+    else:
+        start_buttons = get_start_buttons(my_detail.username)
 
     # Default welcome message
     if not START_MESSAGE:
@@ -84,36 +95,38 @@ async def _start(Badmunda: Client, message: Message):
             "❖━━━━•❅•°•❈•°•❅•━━━━❖"
         )
 
-    # Send start message using configured clients
+    # Send the start message using configured clients
     for i in range(1, 26):
         client_name = f"Client{i}"
-        lol = globals().get(client_name)
+        client = globals().get(client_name)
 
-        if lol is None:
+        if client is None:
             continue
 
         try:
-            if START_PIC.lower().endswith((".jpg", ".jpeg", ".png")):
-                await lol.send_photo(
+            if START_PIC.lower().endswith(
+                (".jpg", ".jpeg", ".png")
+            ):
+                await client.send_photo(
                     chat_id=message.chat.id,
                     photo=START_PIC,
                     caption=START_MESSAGE,
-                    reply_markup=START_BUTTONS,
+                    reply_markup=start_buttons,
                 )
 
             elif START_PIC.lower().endswith(".mp4"):
-                await lol.send_video(
+                await client.send_video(
                     chat_id=message.chat.id,
                     video=START_PIC,
                     caption=START_MESSAGE,
-                    reply_markup=START_BUTTONS,
+                    reply_markup=start_buttons,
                 )
 
             else:
-                await lol.send_message(
+                await client.send_message(
                     chat_id=message.chat.id,
                     text=START_MESSAGE,
-                    reply_markup=START_BUTTONS,
+                    reply_markup=start_buttons,
                 )
 
         except Exception as e:
