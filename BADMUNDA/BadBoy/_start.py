@@ -1,64 +1,123 @@
+
 import platform
 
-from pyrogram import Client
+from urllib.parse import quote
+from pyrogram import Client, filters
 from pyrogram import __version__ as py_version
-from pyrogram import filters
-from pyrogram.types import InlineKeyboardMarkup, Message
-from SukhPB.start import start_cmd
+from pyrogram.types import (
+    InlineKeyboardMarkup,
+    InlineKeyboardButton,
+    Message,
+)
 
 from BADMUNDA.Config import *
-
 from ..core.clients import *
+
 
 # Default START_PIC if not set
 if not START_PIC:
-    START_PIC = "https://envs.sh/fS5.jpg"
+    START_PIC = "https://i.pinimg.com/736x/e9/c7/f7/e9c7f78ec4180885cd0ce4bf95197c40.jpg"
+
+
+# Custom start buttons
+START_BUTTONS = InlineKeyboardMarkup(
+    [
+        [
+            InlineKeyboardButton(
+                "🌸 ᴅᴇᴠᴇʟᴏᴘᴇʀ 🌸",
+                url="https://t.me/censored_politics",
+            ),
+            InlineKeyboardButton(
+                "💫 sᴜᴘᴘᴏʀᴛ 💫",
+                url="https://t.me/censoredkrishan",
+            ),
+        ],
+        [
+            InlineKeyboardButton(
+                "👻 ᴀᴅᴅ ᴍᴇ ɪɴ ʏᴏᴜʀ ɢʀᴏᴜᴘ 👻",
+                url=f"https://t.me/{bot_username}?startgroup=true",
+            ),
+        ],
+        [
+            InlineKeyboardButton(
+                "📢 ᴄʜᴀɴɴᴇʟ 📢",
+                url="https://t.me/censoredkrishan",
+            ),
+            InlineKeyboardButton(
+                "📂 sᴏᴜʀᴄᴇ ᴄᴏᴅᴇ 📂",
+                url="https://t.me/censored_politics",
+            ),
+        ],
+        [
+            InlineKeyboardButton(
+                "✨ ᴜᴘᴅᴀᴛᴇ ✨",
+                url="https://t.me/censoredkrishan",
+            ),
+        ],
+    ]
+)
 
 
 @Client.on_message(filters.command(["start"], prefixes=HANDLER))
 async def _start(Badmunda: Client, message: Message):
     global START_MESSAGE
+
     my_detail = await Badmunda.get_me()
     my_mention = my_detail.mention
 
-    # Default START_MESSAGE if not set
+    # Default welcome message
     if not START_MESSAGE:
+        user_mention = (
+            message.from_user.mention
+            if message.from_user
+            else "there"
+        )
+
         START_MESSAGE = (
-            f"ʜᴇʏ💫 {message.from_user.mention}🌸\n"
+            f"ʜᴇʏ💫 {user_mention}🌸\n"
             f"✥ ɪ ᴀᴍ {my_mention}\n\n"
             "❖━━━━•❅•°•❈•°•❅•━━━━❖\n\n"
             f"✥ **__ᴘʏʀᴏɢʀᴀᴍ ᴠᴇʀsɪᴏɴ__** = {py_version}\n"
-            f"✥ **__ᴘʏᴛʜᴏɴ ᴠᴇʀsɪᴏɴ__** = {platform.python_version()}\n"
+            f"✥ **__ᴘʏᴛʜᴏɴ ᴠᴇʀsɪᴏɴ__** = "
+            f"{platform.python_version()}\n"
             f"✥ **__ʙᴏᴛsᴘᴀᴍ ᴠᴇʀsɪᴏɴ__** = {version}\n"
             "❖━━━━•❅•°•❈•°•❅•━━━━❖"
         )
 
-    # Getting start buttons
-    start_buttons = await start_cmd(Badmunda)
-
-    # Loop through Clients 1 to 25
+    # Send start message using configured clients
     for i in range(1, 26):
         client_name = f"Client{i}"
-        if client_name in globals():
-            lol = globals()[client_name]
-            if lol is not None:
-                if START_PIC.lower().endswith((".jpg", ".png")):
-                    await lol.send_photo(
-                        message.chat.id,
-                        START_PIC,
-                        caption=START_MESSAGE,
-                        reply_markup=InlineKeyboardMarkup(start_buttons),
-                    )
-                elif START_PIC.lower().endswith(".mp4"):
-                    await lol.send_video(
-                        message.chat.id,
-                        START_PIC,
-                        caption=START_MESSAGE,
-                        reply_markup=InlineKeyboardMarkup(start_buttons),
-                    )
-                else:
-                    await lol.send_message(
-                        message.chat.id,
-                        START_MESSAGE,
-                        reply_markup=InlineKeyboardMarkup(start_buttons),
-                    )
+        lol = globals().get(client_name)
+
+        if lol is None:
+            continue
+
+        try:
+            if START_PIC.lower().endswith((".jpg", ".jpeg", ".png")):
+                await lol.send_photo(
+                    chat_id=message.chat.id,
+                    photo=START_PIC,
+                    caption=START_MESSAGE,
+                    reply_markup=START_BUTTONS,
+                )
+
+            elif START_PIC.lower().endswith(".mp4"):
+                await lol.send_video(
+                    chat_id=message.chat.id,
+                    video=START_PIC,
+                    caption=START_MESSAGE,
+                    reply_markup=START_BUTTONS,
+                )
+
+            else:
+                await lol.send_message(
+                    chat_id=message.chat.id,
+                    text=START_MESSAGE,
+                    reply_markup=START_BUTTONS,
+                )
+
+        except Exception as e:
+            print(
+                f"Failed to send start message with "
+                f"{client_name}: {e}"
+            )
