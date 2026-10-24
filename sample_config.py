@@ -35,9 +35,10 @@ BOT_TOKEN23 = config("BOT_TOKEN23", default=None)
 BOT_TOKEN24 = config("BOT_TOKEN24", default=None)
 BOT_TOKEN25 = config("BOT_TOKEN25", default=None)
 try:
-    SUDO_USERS = str(getenv("SUDO_USERS", "123 456")).split(" ")
+    _sudo_raw = str(getenv("SUDO_USERS", "")).strip()
+    SUDO_USERS = [x for x in _sudo_raw.split() if x.strip()] if _sudo_raw else []
 except Exception:
-    SUDO_USERS = str(getenv("SUDO_USERS", "123 456"))
+    SUDO_USERS = []
 
 START_MESSAGE = getenv("START_MESSAGE", None)
 

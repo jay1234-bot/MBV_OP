@@ -295,10 +295,10 @@ else:
 
 if BOT_TOKEN24:
     Client24 = call(
-        "BadSpam14",
+        "BadSpam24",
         api_id=APP_ID,
         api_hash=API_HASH,
-        bot_token=BOT_TOKEN14,
+        bot_token=BOT_TOKEN24,
         plugins=dict(root="BADMUNDA.BadBoy"),
     )
     print("BadSpam : Bot token 24 Found")

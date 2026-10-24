@@ -12,17 +12,21 @@ start_time = time.time()
 
 # Sudo Users
 sudos = []
-# full debugging
+
+# OWNER_ID ko hamesha sudos mein add karo - yahi main fix hai
+if OWNER_ID and int(OWNER_ID) not in sudos:
+    sudos.append(int(OWNER_ID))
+
 if SUDO_USERS:
     try:
         sudouser = SUDO_USERS
-        print(sudouser)
-        _list = []
+        print(f"Sudo users from env: {sudouser}")
         for x in sudouser:
-            _list.append(int(x))
-        sudos = _list
+            uid = int(x)
+            # Default placeholder values 123/456 skip karo
+            if uid not in (123, 456) and uid not in sudos:
+                sudos.append(uid)
     except Exception as e:
-        sudos = SUDO_USERS
-        print(e)
-else:
-    print("sudo user")
+        print(f"Sudo parse error: {e}")
+
+print(f"Sudo users loaded: {sudos}")
